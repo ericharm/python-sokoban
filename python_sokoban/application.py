@@ -28,6 +28,15 @@ class Application:
     def push_state(state: State) -> None:
         Application.states.append(state)
 
+    @staticmethod
+    def swap_state(state: State) -> None:
+        Application.states.pop()
+        Application.push_state(state)
+
+    @staticmethod
+    def quit() -> None:
+        Application.states = []
+
     @property
     def current_state(self) -> State:
         return self.states[-1]

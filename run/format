@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+black python_sokoban && isort python_sokoban && mypy python_sokoban --check-untyped-defs && flake8 --max-line-length=88

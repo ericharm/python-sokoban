@@ -10,3 +10,6 @@ class Entity(Tile):
     color: Color
     character: str
     location: Point = Point(0, 0)
+
+    def move_by(self, x: int, y: int) -> None:
+        self.location = Point(self.location.x + x, self.location.y + y)

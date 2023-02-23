@@ -14,8 +14,17 @@ class Game(State):
         return [cast(Tile, tile) for tile in self.tiles]
 
     def handle_input(self, key: str) -> None:
-        if key == "q":
-            Application().states.pop()
+        match key:
+            case "KEY_UP":
+                self.level.player.move_by(0, -1)
+            case "KEY_DOWN":
+                self.level.player.move_by(0, 1)
+            case "KEY_LEFT":
+                self.level.player.move_by(-1, 0)
+            case "KEY_RIGHT":
+                self.level.player.move_by(1, 0)
+            case "q":
+                Application.quit()
 
     @property
     def tiles(self) -> List[Entity]:

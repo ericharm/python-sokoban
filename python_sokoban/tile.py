@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import curses
 from typing import List
 
@@ -14,7 +16,7 @@ class Tile:
     location: Point = Point(0, 0)
 
     @staticmethod
-    def from_string(string: str, color: Color = Color.white) -> List["Tile"]:
+    def from_string(string: str, color: Color = Color.white) -> List[Tile]:
         x = 0
         y = 0
         tiles = []

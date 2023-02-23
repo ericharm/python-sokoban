@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 from typing import List, Optional
 
@@ -16,7 +18,7 @@ class Level:
     player: Player
 
     @staticmethod
-    def from_file(file_path: str) -> "Level":
+    def from_file(file_path: str) -> Level:
         entities: List[Entity] = []
         player: Optional[Player] = None
         x = 0
