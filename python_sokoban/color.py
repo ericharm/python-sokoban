@@ -2,6 +2,10 @@ from enum import Enum
 
 
 class Color(Enum):
+    """
+    These are mapped to curses colors.
+    """
+
     black = 1
     green = 2
     blue = 3

@@ -11,6 +11,10 @@ from python_sokoban.point import Point
 
 @attr.s(auto_attribs=True)
 class Tile:
+    """
+    A tile is a single character that can be rendered to the screen.
+    """
+
     color: Color
     character: str
     location: Point = Point(0, 0)

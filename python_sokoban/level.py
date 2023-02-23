@@ -14,6 +14,10 @@ from python_sokoban.point import Point
 
 @dataclass
 class Level:
+    """
+    A level is a collection of entities.
+    """
+
     entities: List[Entity]
     player: Player
 

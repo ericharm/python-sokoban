@@ -7,6 +7,10 @@ from python_sokoban.tile import Tile
 
 @attr.s(auto_attribs=True)
 class Entity(Tile):
+    """
+    An entity is a tile that can be moved around.
+    """
+
     color: Color
     character: str
     location: Point = Point(0, 0)
