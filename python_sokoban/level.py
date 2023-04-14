@@ -47,7 +47,7 @@ class Level:
             return Level(entities=entities, player=player)
 
 
-def _entity_from_character(char, x, y) -> Optional[Entity]:
+def _entity_from_character(char: str, x: int, y: int) -> Optional[Entity]:
     match char:
         case "@":
             return Player(location=Point(x, y))

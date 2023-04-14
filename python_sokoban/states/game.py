@@ -1,4 +1,3 @@
-import curses
 from typing import cast
 
 from attr import define
@@ -15,8 +14,11 @@ class Game(State):
     level: Level
     show_cursor: bool = False
 
-    def draw_tiles(self, _: curses.window) -> list[Tile]:
+    def draw_tiles(self) -> list[Tile]:
         return [cast(Tile, tile) for tile in self.tiles]
+
+    def draw_cursor(self) -> None:
+        pass
 
     def handle_input(self, key: str) -> None:
         match key:

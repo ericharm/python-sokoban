@@ -1,11 +1,10 @@
-import curses
-
 from attr import define
 
 from python_sokoban.application import Application
 from python_sokoban.color import Color
 from python_sokoban.level import Level
 from python_sokoban.options_list import Option, OptionsList
+from python_sokoban.point import Point
 from python_sokoban.state import State
 from python_sokoban.states.game import Game
 from python_sokoban.tile import Tile
@@ -38,13 +37,14 @@ stage_select_options = OptionsList(
 class StageSelect(State):
     show_cursor: bool = True
 
-    def draw_tiles(self, screen: curses.window) -> list[Tile]:
-        x, y = stage_select_options.cursor_position
-        screen.move(x, y)
+    def draw_tiles(self) -> list[Tile]:
         return self._get_heading() + stage_select_options.draw()
 
-    def draw_cursor(self) -> None:
-        pass
+    def draw_cursor(self) -> Point:
+        x, y = stage_select_options.cursor_position
+        heading_height = 1
+        y += heading_height
+        return Point(x, y)
 
     def handle_input(self, key: str) -> None:
         stage_select_options.handle_input(key)

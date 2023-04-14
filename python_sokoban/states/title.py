@@ -1,5 +1,3 @@
-import curses
-
 from attr import define
 
 from python_sokoban.application import Application
@@ -11,7 +9,7 @@ from python_sokoban.tile import Tile
 
 @define(auto_attribs=True)
 class Title(State):
-    def draw_tiles(self, _: curses.window) -> list[Tile]:
+    def draw_tiles(self) -> list[Tile]:
         tiles = _title_tiles()
         tiles.extend(_option_tiles())
         return tiles

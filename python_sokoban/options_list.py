@@ -2,7 +2,10 @@ from dataclasses import dataclass
 from typing import Callable
 
 from python_sokoban.color import Color
+from python_sokoban.point import Point
 from python_sokoban.tile import Tile
+
+SELECTED_OPTION_CURSOR_GUTTER = 2
 
 
 @dataclass
@@ -21,9 +24,9 @@ class OptionsList:
 
     def handle_input(self, key: str) -> None:
         if key == "KEY_UP":
-            self.selected_option_index -= 1
+            self.selected_option_index -= 2
         if key == "KEY_DOWN":
-            self.selected_option_index += 1
+            self.selected_option_index += 2
         if key == "KEY_LEFT":
             self.selected_option_index -= 1
         if key == "KEY_RIGHT":
@@ -60,13 +63,18 @@ class OptionsList:
         return tiles
 
     @property
-    def max_option_index(self):
+    def max_option_index(self) -> int:
         return len(self.options) - 1
 
     @property
-    def selected_option(self):
+    def selected_option(self) -> Option:
         return self.options[self.selected_option_index]
 
     @property
-    def cursor_position(self):
-        return (3, 3)
+    def cursor_position(self) -> Point:
+        is_left = self.selected_option_index % 2 == 0
+        x = self.left_column_x_offset if is_left else self.right_column_x_offset
+        x -= SELECTED_OPTION_CURSOR_GUTTER
+        y = int(self.selected_option_index / 2) * 2
+        y += 2
+        return Point(x, y)

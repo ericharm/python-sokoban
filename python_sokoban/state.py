@@ -1,9 +1,10 @@
 import curses
 from abc import ABC, abstractmethod
-from typing import Optional, Tuple
+from typing import Optional
 
 from attr import define
 
+from python_sokoban.point import Point
 from python_sokoban.tile import Tile
 
 
@@ -26,7 +27,7 @@ class State(ABC):
         pass
 
     @abstractmethod
-    def draw_cursor(self) -> Optional[Tuple[int, int]]:
+    def draw_cursor(self) -> Optional[Point]:
         pass
 
     @abstractmethod

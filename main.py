@@ -1,9 +1,8 @@
 import curses
+
 from python_sokoban.application import Application
 from python_sokoban.states.title import Title
 from python_sokoban.tile import Tile
-
-# from python_sokoban.tile import Tile
 
 
 def main(screen: curses.window) -> None:
@@ -21,7 +20,7 @@ def main(screen: curses.window) -> None:
             cursor_position = application.current_state().draw_cursor()
             assert cursor_position
             x, y = cursor_position
-            screen.move(x, y)
+            screen.move(y + offset.y, x + offset.x)
         application.current_state().handle_input(key=screen.getkey())
 
 
