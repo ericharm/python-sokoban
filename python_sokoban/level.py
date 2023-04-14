@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import List, Optional
+from typing import Optional
+
+from attr import define
 
 from python_sokoban.entities.boulder import Boulder
 from python_sokoban.entities.exit import Exit
@@ -12,18 +13,18 @@ from python_sokoban.entity import Entity
 from python_sokoban.point import Point
 
 
-@dataclass
+@define
 class Level:
     """
     A level is a collection of entities.
     """
 
-    entities: List[Entity]
+    entities: list[Entity]
     player: Player
 
     @staticmethod
     def from_file(file_path: str) -> Level:
-        entities: List[Entity] = []
+        entities: list[Entity] = []
         player: Optional[Player] = None
         x = 0
         y = 0

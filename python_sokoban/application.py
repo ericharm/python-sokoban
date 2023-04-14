@@ -1,5 +1,3 @@
-from typing import List
-
 from python_sokoban.state import State
 
 
@@ -8,37 +6,37 @@ class Application:
     The application class is a singleton that manages the game's states.
     """
 
-    instance = None
-
-    def __new__(cls):
-        if cls.instance is None:
-            cls.instance = super(Application, cls).__new__(cls)
-            cls.states: List[State] = []
-        return cls.instance
-
-    @staticmethod
-    def get_instance():
-        if Application.instance is None:
-            Application.instance = Application()
-        return Application.instance
+    states: list[State] = []
+    resetting = False
 
     @staticmethod
     def push_state(state: State) -> None:
+        Application.resetting = False
         Application.states.append(state)
 
     @staticmethod
-    def swap_state(state: State) -> None:
+    def pop_state() -> None:
         Application.states.pop()
+
+    @staticmethod
+    def swap_state(state: State) -> None:
+        Application.pop_state()
         Application.push_state(state)
+        if len(Application.states) > 1:
+            raise Exception("Application has more than one state.")
+
+    @staticmethod
+    def reset() -> None:
+        Application.resetting = True
 
     @staticmethod
     def quit() -> None:
         Application.states = []
 
-    @property
-    def current_state(self) -> State:
-        return self.states[-1]
+    @staticmethod
+    def current_state() -> State:
+        return Application.states[-1]
 
-    @property
-    def is_running(self) -> bool:
-        return len(self.states) > 0
+    @staticmethod
+    def is_running() -> bool:
+        return len(Application.states) > 0

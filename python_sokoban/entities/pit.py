@@ -8,3 +8,6 @@ from python_sokoban.entity import Entity
 class Pit(Entity):
     color: Color = Color.yellow
     character: str = "^"
+
+    def move_by(self, x: int, y: int, level: list[Entity]) -> bool:
+        return False

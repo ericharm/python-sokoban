@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Optional
+
 import attr
 
 from python_sokoban.color import Color
@@ -14,6 +18,31 @@ class Entity(Tile):
     color: Color
     character: str
     location: Point = Point(0, 0)
+    movable: bool = False
 
-    def move_by(self, x: int, y: int) -> None:
-        self.location = Point(self.location.x + x, self.location.y + y)
+    def move_by(self, x: int, y: int, level: list[Entity]) -> bool:
+        if not self.movable:
+            return False
+        next_location = Point(self.location.x + x, self.location.y + y)
+        entity = _entity_at_point(level, next_location.x, next_location.y)
+        if entity is None:
+            self.move_to(next_location.x, next_location.y)
+            return True
+        else:
+            return self.collide(x, y, entity, level)
+
+    def move_to(self, x: int, y: int) -> None:
+        self.location = Point(x, y)
+
+    def collide(self, x: int, y: int, entity: Entity, level: list[Entity]) -> bool:
+        return False
+
+
+def _entity_at_point(entities: list[Entity], x: int, y: int) -> Optional[Entity]:
+    """
+    Return an entity if there is one at point (x, y).
+    """
+    for entity in entities:
+        if entity.location == Point(x, y):
+            return entity
+    return None
