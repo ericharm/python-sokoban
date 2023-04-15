@@ -27,8 +27,7 @@ options = [
 
 stage_select_options = OptionsList(
     options=options,
-    left_column_x_offset=-3,
-    right_column_x_offset=8,
+    column_offsets=[-3, 8],
     y_offset=3,
 )
 

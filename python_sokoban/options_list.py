@@ -6,6 +6,7 @@ from python_sokoban.point import Point
 from python_sokoban.tile import Tile
 
 SELECTED_OPTION_CURSOR_GUTTER = 2
+Y_SPACING = 2
 
 
 @dataclass
@@ -17,8 +18,7 @@ class Option:
 @dataclass
 class OptionsList:
     options: list[Option]
-    left_column_x_offset: int
-    right_column_x_offset: int
+    column_offsets: list[int]
     y_offset: int
     selected_option_index: int = 0
 
@@ -41,24 +41,22 @@ class OptionsList:
             self.selected_option.action()
 
     def draw(self) -> list[Tile]:
-        left_x_offset = self.left_column_x_offset
-        right_x_offset = self.right_column_x_offset
         base_y_offset = self.y_offset
-
-        x_offset = left_x_offset
+        column_index = 0
+        x_offset = self.column_offsets[column_index]
         y_offset = base_y_offset
+
         tiles: list[Tile] = []
-        is_left = True
         for option in self.options:
             tiles.extend(
                 Tile.offset_tiles(
                     Tile.from_string(option.text, Color.white), x_offset, y_offset
                 )
             )
-            is_left = not is_left
-            x_offset = left_x_offset if is_left else right_x_offset
-            if is_left:
-                y_offset += 2
+            column_index = (column_index + 1) % self.column_count
+            x_offset = self.column_offsets[column_index]
+            if column_index == 0:
+                y_offset += Y_SPACING
 
         return tiles
 
@@ -71,10 +69,17 @@ class OptionsList:
         return self.options[self.selected_option_index]
 
     @property
+    def column_count(self) -> int:
+        return len(self.column_offsets)
+
+    @property
+    def max_column_index(self) -> int:
+        return self.column_count - 1
+
+    @property
     def cursor_position(self) -> Point:
-        is_left = self.selected_option_index % 2 == 0
-        x = self.left_column_x_offset if is_left else self.right_column_x_offset
+        column_index = self.selected_option_index % self.column_count
+        x = self.column_offsets[column_index]
         x -= SELECTED_OPTION_CURSOR_GUTTER
-        y = int(self.selected_option_index / 2) * 2
-        y += 2
+        y = Y_SPACING + int(self.selected_option_index / self.column_count) * Y_SPACING
         return Point(x, y)
