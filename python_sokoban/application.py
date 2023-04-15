@@ -23,7 +23,7 @@ class Application:
         Application.pop_state()
         Application.push_state(state)
         if len(Application.states) > 1:
-            raise Exception("Application has more than one state.")
+            raise Exception("Application has more than one active state.")
 
     @staticmethod
     def reset() -> None:

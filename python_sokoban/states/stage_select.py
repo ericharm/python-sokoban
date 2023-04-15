@@ -11,7 +11,7 @@ from python_sokoban.tile import Tile
 
 
 def select_level(file_name: str) -> None:
-    Application.swap_state(Game(Level.from_file(file_name)))
+    Application.swap_state(Game(level=Level.from_file(file_name)))
 
 
 options = [

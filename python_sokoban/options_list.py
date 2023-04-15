@@ -79,7 +79,6 @@ class OptionsList:
     @property
     def cursor_position(self) -> Point:
         column_index = self.selected_option_index % self.column_count
-        x = self.column_offsets[column_index]
-        x -= SELECTED_OPTION_CURSOR_GUTTER
+        x = self.column_offsets[column_index] - SELECTED_OPTION_CURSOR_GUTTER
         y = Y_SPACING + int(self.selected_option_index / self.column_count) * Y_SPACING
         return Point(x, y)
