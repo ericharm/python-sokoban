@@ -5,12 +5,14 @@ from python_sokoban.color import Color
 from python_sokoban.options_list import Option, OptionsList
 from python_sokoban.point import Point
 from python_sokoban.state import State
+from python_sokoban.states.instructions import Instructions
 from python_sokoban.states.stage_select import StageSelect
 from python_sokoban.tile import Tile
 
 _options = OptionsList(
     options=[
         Option(text="Play", action=lambda: Application.swap_state(StageSelect())),
+        Option(text="Instructions", action=lambda: Application.swap_state(Instructions())),
         Option(text="Quit", action=lambda: Application.quit()),
     ],
     column_offsets=[0],
