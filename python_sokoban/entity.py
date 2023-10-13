@@ -35,6 +35,7 @@ class Entity(Tile):
         self.location = Point(x, y)
 
     def collide(self, x: int, y: int, entity: Entity, level: list[Entity]) -> bool:
+        del x, y, entity, level
         return False
 
 

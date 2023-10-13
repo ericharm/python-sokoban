@@ -24,9 +24,9 @@ class OptionsList:
 
     def handle_input(self, key: str) -> None:
         if key == "KEY_UP":
-            self.selected_option_index -= 2
+            self.selected_option_index -= self.column_count
         if key == "KEY_DOWN":
-            self.selected_option_index += 2
+            self.selected_option_index += self.column_count
         if key == "KEY_LEFT":
             self.selected_option_index -= 1
         if key == "KEY_RIGHT":
