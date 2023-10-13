@@ -12,7 +12,9 @@ from python_sokoban.tile import Tile
 _options = OptionsList(
     options=[
         Option(text="Play", action=lambda: Application.swap_state(StageSelect())),
-        Option(text="Instructions", action=lambda: Application.swap_state(Instructions())),
+        Option(
+            text="Instructions", action=lambda: Application.swap_state(Instructions())
+        ),
         Option(text="Quit", action=lambda: Application.quit()),
     ],
     column_offsets=[0],
